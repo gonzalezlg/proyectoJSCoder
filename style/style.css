@@ -6,7 +6,21 @@
     
 
     padding: 20px;
+    background-color: rgb(238, 157, 157);
 }
+
+#carrito{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    
+
+    padding: 20px;
+}
+
+
 
 .tarjeta {
     display: flex;
@@ -26,4 +40,11 @@
     border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
+}
+
+.tituloCarrito{
+    width: 100%;
+    text-align: center;
+    color: blue;
+    text-decoration: underline;
 }

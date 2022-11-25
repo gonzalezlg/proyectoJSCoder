@@ -172,6 +172,8 @@ let agregarProductos = () => {
 /* SE CARGAN TODAS LAS CARDS DE LOS PRODUCTOS */
 let cards = document.getElementById("cards");
 
+let carrito = [];
+
 BBDD.forEach((product) => {
     
     let content = document.createElement("div")
@@ -192,12 +194,10 @@ BBDD.forEach((product) => {
     botonAdd.classList = "btn-add";
     content.append(botonAdd);
 
-
-    let carrito = [];
-
     botonAdd.addEventListener("click", () => { // Funcion que se le asgina a los botones para que agregue al carrito los elementos seleccionados
         carrito.push(
             {
+                img: product.img,
                 id: product.id,
                 nombre: product.nombre,
                 precio: product.precio
@@ -208,24 +208,86 @@ BBDD.forEach((product) => {
 
         Swal.fire({
             title: 'Gracias!',
-            text: 'Se agrego el producto seleccionado',    // Se agrega popup con la libreria sweet
+            text: 'Se agrego el producto seleccionado',    // Se agrega popup con la libreria sweet cada vez que se desea agregar un producto al carrito
             icon: 'success',
             confirmButtonText: 'ok',
             timer: 3000
           })
     })
 
-    console.log(carrito);
 
-
-    /* Se genera la visualizacion del carrito cuando presiona en el navbar la opcion " Ver Carrito" */
     
-
-
-
-
 });
 
+ /* Se genera la visualizacion del carrito cuando presiona en el navbar la opcion " Ver Carrito" */
+
+// Se crea boton de ver carrito
+let btnVerCarrito = document.getElementById("verCarrito");
+let contentCarrito = document.getElementById("carrito");
+
+
+btnVerCarrito.addEventListener ("click", () => {
+    
+    contentCarrito.innerText = "";
+    contentCarrito.classList = "bg-success";
+    
+    const modelHeader = document.createElement("div");
+    modelHeader.classList = "tituloCarrito";
+    modelHeader.innerHTML = `
+        <h1> Resumen de su compra </h1>
+    `;
+
+    contentCarrito.append(modelHeader);
+
+    carrito.forEach(( product) => {
+        
+        let carritoContent = document.createElement("div");
+        carritoContent.className="tarjeta"
+        carritoContent.innerHTML = `
+        <div class="img">
+            <img src=${product.img} alt="img1">
+          </div>
+        <h4> Producto: ${product.nombre} </h4>
+        <p> Producto: ${product.precio} </p>
+    `;
+
+    contentCarrito.append(carritoContent);
+    
+    
+
+    });
+
+
+
+    //Una vez que se presiona el boton de ver carrito se almacena dicho array en el Local Storage
+  
+    const guardarLocal = (clave, valor) => {
+        localStorage.setItem(clave, valor)
+     }
+    
+    
+     for(const producto of carrito) {
+        
+        guardarLocal(producto.id, JSON.stringify(producto))
+    
+        const productosJson = JSON.parse(localStorage.getItem("Prod"))
+    
+        console.log(productosJson)
+    
+    }
+    
+    const productosJson = JSON.parse(localStorage.getItem("Prod"))
+    
+    console.log(productosJson.id)
+    
+    
+     for(const producto of productos) {
+         guardarLocal("productos" ,JSON.stringify(productos))
+     }
+     
+     guardarLocal("Listado Productos", JSON.stringify())
+
+})
 
 
 
