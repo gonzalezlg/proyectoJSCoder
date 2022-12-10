@@ -1,0 +1,38 @@
+[
+  {
+    "codSucursal": 10,
+    "direccion": "Rivadavia 5300",
+    "barrio": "Caballito",
+    "telefono": "4902-7895"
+  },
+  {
+    "codSucursal": 11,
+    "direccion": "Av San Juan 351",
+    "barrio": "Boedo",
+    "telefono": "4933-4455"
+  },
+  {
+    "codSucursal": 12,
+    "direccion": "Juan B Justo 2520",
+    "barrio": "Villa Crespo",
+    "telefono": "4958-2030"
+  },
+  {
+    "codSucursal": 13,
+    "direccion": "Acoyte 350",
+    "barrio": "Caballito 2 ",
+    "telefono": "4433-1510"
+  },
+  {
+    "codSucursal": 14,
+    "direccion": "Av. Directorio 150",
+    "barrio": "Mataderos",
+    "telefono": "4915-3220"
+  },
+  {
+    "codSucursal": 15,
+    "direccion": "Alberdi 1520",
+    "barrio": "Ramos Mejia",
+    "telefono": "4903-1320"
+  }
+]

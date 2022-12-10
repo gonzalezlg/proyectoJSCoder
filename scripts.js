@@ -30,9 +30,6 @@ BBDD.forEach(el => {
     console.log(`ID: ${el.id} - Stock: ${el.nombre} - Stock: ${el.stock}`); // Recorre la base de datos, mostrando el ID del producto, nombre y su stock
 });
 
-
-
-
 //  ******** FUNCIONES ********
 
 // Funcion en la cual el usuario ingresa cantidad de productos y el precio individual, y va a acumulando hasta que ingrese le numero 0
@@ -177,7 +174,7 @@ let carrito = [];
 BBDD.forEach((product) => {
     
     let content = document.createElement("div")
-    content.className="tarjeta"
+    content.className="tarjeta rounded-4"
     content.innerHTML = `
           <div class="img">
             <img src=${product.img} alt="img1">
@@ -206,6 +203,9 @@ BBDD.forEach((product) => {
 
         console.log(carrito);
 
+
+        
+        setTimeout(()=>{
         Swal.fire({
             title: 'Gracias!',
             text: 'Se agrego el producto seleccionado',    // Se agrega popup con la libreria sweet cada vez que se desea agregar un producto al carrito
@@ -213,6 +213,9 @@ BBDD.forEach((product) => {
             confirmButtonText: 'ok',
             timer: 3000
           })
+
+        },1000)
+
     })
 
 
@@ -227,9 +230,9 @@ let contentCarrito = document.getElementById("carrito");
 
 
 btnVerCarrito.addEventListener ("click", () => {
-    
+    let valorTotal = 0;
     contentCarrito.innerText = "";
-    contentCarrito.classList = "bg-success";
+    contentCarrito.classList = "bg-light";
     
     const modelHeader = document.createElement("div");
     modelHeader.classList = "tituloCarrito";
@@ -242,20 +245,29 @@ btnVerCarrito.addEventListener ("click", () => {
     carrito.forEach(( product) => {
         
         let carritoContent = document.createElement("div");
-        carritoContent.className="tarjeta"
+        carritoContent.className="tarjeta rounded-4"
         carritoContent.innerHTML = `
         <div class="img">
             <img src=${product.img} alt="img1">
           </div>
-        <h4> Producto: ${product.nombre} </h4>
-        <p> Producto: ${product.precio} </p>
-    `;
+        <h4> ${product.nombre} </h4>
+        <p> $ ${product.precio} </p>
+    `
+    valorTotal = valorTotal + product.precio;
+    ;
 
     contentCarrito.append(carritoContent);
-    
-    
 
     });
+    console.log(valorTotal);
+
+    const modelFooter = document.createElement("div");
+    modelFooter.classList = "tituloCarrito";
+    modelFooter.innerHTML = `
+        <h1 class= "mt-5"> Total a pagar: $ ${valorTotal}</h1>
+    `;
+
+    contentCarrito.append(modelFooter);
 
 
 
@@ -271,23 +283,61 @@ btnVerCarrito.addEventListener ("click", () => {
         guardarLocal(producto.id, JSON.stringify(producto))
     
         const productosJson = JSON.parse(localStorage.getItem("Prod"))
-    
-        console.log(productosJson)
+
     
     }
     
-    const productosJson = JSON.parse(localStorage.getItem("Prod"))
-    
-    console.log(productosJson.id)
-    
+    const productosJson = JSON.parse(localStorage.getItem("Prod"));
+    console.log(productosJson.id);
     
      for(const producto of productos) {
-         guardarLocal("productos" ,JSON.stringify(productos))
+         guardarLocal("productos" ,JSON.stringify(productos));
      }
      
-     guardarLocal("Listado Productos", JSON.stringify())
+     guardarLocal("Listado Productos", JSON.stringify());
 
 })
+
+
+//Promesas, utilziando un archivo de formato JSon con las sucursales que se imprimen en pantalla cuando se presiona el boton "Sucursales"
+
+let divSucursales = document.getElementById("sucursales");
+let btnSucursales = document.getElementById("btnSucursales");
+
+
+btnSucursales.addEventListener ("click", () => {
+    
+    divSucursales.innerText = "";
+    divSucursales.classList = "bg-success p-2 text-dark bg-opacity-25";
+
+
+    const modelHeaderSuc = document.createElement("div");
+    modelHeaderSuc.classList = "tituloCarrito";
+    modelHeaderSuc.innerHTML = `
+        <h1 class="mb-5"> Sucursales</h1>
+    `;
+    divSucursales.append(modelHeaderSuc);
+
+    fetch("sucursales.json")
+    .then( (res)=> res.json() )
+    .then(( data )=>{
+        data.forEach( sucursal => {
+            let suc = document.createElement("div");
+
+            suc.innerHTML = `
+                <p class="fw-bold text-center">  ${sucursal.barrio} </p>
+                <p class="text-center">  ${sucursal.direccion} </p>
+                <p class="text-center">  ${sucursal.telefono} </p>
+            `
+            divSucursales.append(suc)
+        });
+    })
+
+    });
+
+
+
+
 
 
 
